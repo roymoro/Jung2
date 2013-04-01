@@ -16,6 +16,9 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.samples.SimpleGraphDraw;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse.Mode;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 public class TestGenerateGraph {
@@ -33,7 +36,8 @@ public class TestGenerateGraph {
 		
 		Layout<Integer, String> layout=new CircleLayout<Integer, String>(g);
 		layout.setSize(new Dimension(300,300));
-		BasicVisualizationServer<Integer, String> vv=new BasicVisualizationServer<Integer, String>(layout);
+	//	BasicVisualizationServer<Integer, String> vv=new BasicVisualizationServer<Integer, String>(layout);
+		VisualizationViewer<Integer, String> vv=new VisualizationViewer<Integer, String>(layout);//支持鼠标事件
 		vv.setPreferredSize(new Dimension(350,360));
 		vv.getRenderContext().setVertexFillPaintTransformer(new Transformer<Integer, Paint>() {
 	
@@ -44,6 +48,10 @@ public class TestGenerateGraph {
 			}
 		});
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+		//����¼�
+		DefaultModalGraphMouse<Integer, String> gm=new DefaultModalGraphMouse<Integer, String>();
+		gm.setMode(Mode.TRANSFORMING);
+		vv.setGraphMouse(gm);
 		JFrame frame=new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
