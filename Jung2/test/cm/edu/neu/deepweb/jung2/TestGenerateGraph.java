@@ -48,10 +48,11 @@ public class TestGenerateGraph {
 			}
 		});
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
-		//����¼�
+		//支持鼠标事件
 		DefaultModalGraphMouse<Integer, String> gm=new DefaultModalGraphMouse<Integer, String>();
 		gm.setMode(Mode.TRANSFORMING);
 		vv.setGraphMouse(gm);
+		vv.addKeyListener(gm.getModeKeyListener());
 		JFrame frame=new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
